@@ -23,6 +23,7 @@
 def permute(nums):
     res = []
     
+    # 将num中数字逐步移至tmp，移完时返回结果
     def backtrack(nums, tmp):
         # 当nums为空时，返回结果
         if not nums:
