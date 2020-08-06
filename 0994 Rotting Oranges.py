@@ -7,6 +7,7 @@ def orangesRotting(grid):
     fresh = {(i, j) for i in range(row) for j in range(col) if grid[i][j] == 1}  # 新鲜集合
 
     while fresh:
+        print('rotten', rotten, 'fresh', fresh)
         if not rotten: return -1
         # 即将腐烂的如果在新鲜的集合中，就将它腐烂。只计算扩散后的腐烂集合
         rotten = {(i + di, j + dj) for i, j in rotten\
@@ -39,4 +40,4 @@ def orangesRotting(grid):
 
 #     return time
 
-print(orangesRotting([[2,0,1],[0,1,0],[0,1,1]]))
+print(orangesRotting([[2,1,1],[0,1,1],[1,0,1]]))
