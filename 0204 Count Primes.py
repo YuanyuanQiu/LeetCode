@@ -1,27 +1,19 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 18 22:44:01 2020
-
-@author: ToxicCat
-"""
+# 要得到自然数n以内的全部质数，必须把不大于根号n的所有质数的倍数剔除，剩下的就是质数。
 
 def countPrimes(n):
-    if n<=2:
+    # 最小的质数是 2
+    if n < 2:
         return 0
-    elif n==3:
-        return 1
-    else:
-        ls=[1]*n # 0至n-1
-        ls[0]=0
-        ls[1]=0
-        for i in range(2,n): #选定数i
-#            for j in range(pow(i,2),n): #选定数j是否i的倍数
-#                if ls[j] and j%i==0:
-#                    ls[j]=0
-            if ls[i]:
-                a=len(ls[i*i:n:i])
-                ls[i*i:n:i]=[0]*a
-        count=ls.count(1)
-    return(count)
+
+    isPrime = [1] * n # 存放n个元素列表，1表示质数，0表示合数
+    isPrime[0] = isPrime[1] = 0   # 0和1不是质数，先排除掉
+
+    # 埃式筛，把不大于根号n的所有质数的倍数剔除
+    for i in range(2, int(n ** 0.5) + 1):
+        if isPrime[i]: # 判断i是否已经被赋值为0，若为0则不操作
+            # 列表切片赋值
+            isPrime[i*i:n:i] = [0] * ((n - 1 - i*i) // i + 1)
+
+    return sum(isPrime)
 
 print(countPrimes(10))
