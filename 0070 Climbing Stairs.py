@@ -1,9 +1,24 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan  7 14:25:47 2020
+# def climbStairs(n):
+#     if n < 2:
+#         return 1
+    
+#     ans = 1
+#     two = n // 2
+    
+#     def factorial(x):
+#         if x == 0 or x == 1:
+#             return 1
+#         else:
+#             return x*factorial(x-1)
+    
+#     for i in range(1,two+1):
 
-@author: ToxicCat
-"""
+#         if n-i*2 != 0:
+#             ans += factorial(n-i*2+i)/(factorial(n-i*2+i-i)*factorial(i))
+#         else:
+#             ans += 1
+               
+#     return int(ans)
 
 '''
 1. 全1
