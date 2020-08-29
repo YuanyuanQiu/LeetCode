@@ -1,9 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan  6 13:53:14 2020
-
-@author: ToxicCat
-"""
+# def plusOne(digits):
+#     n = int(''.join(list(map(str,digits)))) + 1
+    
+#     ans = []
+#     for i in str(n):
+#         ans.append(i)
+        
+#     return ans
 
 def plusOne(digits):
     num_str = ''
