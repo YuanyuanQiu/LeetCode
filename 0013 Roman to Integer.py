@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan  1 10:37:55 2020
-
-@author: ToxicCat
-"""
-
 def romanToInt(s: str) -> int:
         Roman_single={}
         Roman_single["I"]=1
@@ -32,5 +25,28 @@ def romanToInt(s: str) -> int:
         for j in s: #剩余字符求和
                 num+=Roman_single[j]
         return num
+
+
+def romanToInt(s: str) -> int:
+    if len(s) == 0:
+        return 0
+    
+    dic = {'I':1, 'IV':4, 'V':5, 'IX':9, 'X':10, 'XL':40, 'L':50, 'XC':90, 
+        'C':100, 'CD':400, 'D':500, 'CM':900, 'M':1000}
+    
+    if len(s) == 1:
+        return dic[s]
+    
+    ans = 0
+    i = 0
+    while i+1 <= len(s):
+        if s[i:i+2] in dic:
+            ans += dic[s[i:i+2]]
+            i += 2
+        else:
+            ans += dic[s[i:i+1]]
+            i += 1
+    
+    return ans
 
 print(romanToInt("MCMXCIV"))
