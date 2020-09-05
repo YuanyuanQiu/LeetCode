@@ -39,7 +39,7 @@ def romanToInt(s: str) -> int:
     
     ans = 0
     i = 0
-    while i+1 <= len(s):
+    while i < len(s):
         if s[i:i+2] in dic:
             ans += dic[s[i:i+2]]
             i += 2
