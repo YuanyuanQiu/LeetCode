@@ -13,4 +13,16 @@ def isPalindrome(x):
             else:
                 return False
 
+
+def isPalindrome(x):
+    lst = list(str(x))
+    print(lst)
+    L, R = 0, len(lst)-1
+    while L <= R:
+        if lst[L] != lst[R]:
+            return  False
+        L += 1
+        R -= 1
+    return True
+    
 print(isPalindrome(121))
