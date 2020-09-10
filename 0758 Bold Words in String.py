@@ -14,8 +14,9 @@ def boldWords(words, S):
                 begin += 1
     # print(b)
     
-    rs = ''
-    sc = 0
+    
+    rs = '' # answer
+    sc = 0 # 指针判断开头结尾，为0则不在括号内
     for i,e in enumerate(b):
         if sc == 0 and e > 0:
             rs += '<b>'
