@@ -6,7 +6,7 @@ from
         order_date, 
 		dense_rank() over (partition by customer_id order by order_date desc) rnk
     from Orders) t
-left join Customers c
+join Customers c
 on t.customer_id = c.customer_id
 where rnk <= 3
 order by c.name, c.customer_id, t.order_date desc
