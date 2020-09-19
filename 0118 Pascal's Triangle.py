@@ -22,7 +22,7 @@
 #             i+=1
 #     return result
 
-
+# 动态规划
 def generate(num_rows):
     triangle = []
 
