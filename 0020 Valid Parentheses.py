@@ -8,11 +8,11 @@ def isValid(s: str) -> bool:
         return True
     
     if len(s)%2 !=0:
-            return False
+        return False
     
     dict1={'(':')','{':'}','[':']'}
     
-    ls = [] 只存左括号
+    ls = [] # 只存左括号
     for i in s:
         # 左括号
         if i in dict1.keys():
