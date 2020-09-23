@@ -1,18 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 10 06:37:17 2020
-
-@author: ToxicCat
-"""
-
-'''
-双指针
-'''
-
+# 双指针
 def twoSum(numbers, target):
-    n = len(numbers)
     i = 0
-    j = n-1
+    j = len(numbers) - 1
     while i<j:
         if numbers[i]+numbers[j] == target:
             return i+1, j+1
@@ -20,5 +9,14 @@ def twoSum(numbers, target):
             j-=1
         else:
             i+=1
+
+# 哈希表
+def twoSum(numbers, target):
+    dic = {}
+    for i in range(len(numbers)):
+        if target - numbers[i] in dic:
+            return [dic[target - numbers[i]] + 1, i+1]
+        else:
+            dic[numbers[i]] = i
 
 print(twoSum([5,25,75],100))
