@@ -1,3 +1,7 @@
+# def isPalindrome(x):
+#     s = str(x)
+#     return s == s[::-1]
+
 def isPalindrome(x):
         if x<0: #负数为False
             return False
