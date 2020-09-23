@@ -1,49 +1,38 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Feb  9 10:04:27 2020
+# class MinStack:
 
-@author: ToxicCat
-"""
-# stack=[]
+#     def __init__(self):
+#         self.ls = []
 
-# def push(x: int) -> None:
-#     stack.append(x)
-    
+#     def push(self, x: int) -> None:
+#         self.ls.append(x)
 
-# def pop() -> None:
-#     if stack != []:
-#         stack.pop()
+#     def pop(self) -> None:
+#         self.ls.pop()
 
-# def top() -> int:
-#     if stack != []:
-#         return stack[-1]
+#     def top(self) -> int:
+#         return self.ls[-1]
 
-# def getMin() -> int:
-#     if stack != []:
-#         return min(stack)
+#     def getMin(self) -> int:
+#         return min(self.ls)
 
 
+# retrieving the minimum element in constant time.
+class MinStack:
 
-self.data = []
-# 辅助栈
-self.helper = []
-
-def push(self, x):
-    self.data.append(x)
-    if len(self.helper) == 0 or x <= self.helper[-1]: #确保helper不为空且存min
-        self.helper.append(x)
-    else:
-        self.helper.append(self.helper[-1])
-
-def pop(self):
-    if self.data:
-        self.helper.pop()
-        return self.data.pop()
-
-def top(self):
-    if self.data:
-        return self.data[-1]
-
-def getMin(self):
-    if self.helper:
-        return self.helper[-1]
+    def __init__(self):
+        self.stack = []
+        
+    def push(self, x):
+        if not self.stack:
+            self.stack.append((x, x))
+        else:
+            self.stack.append((x, min(x, self.stack[-1][1])))
+        
+    def pop(self):
+        self.stack.pop()
+        
+    def top(self):
+        return self.stack[-1][0]
+        
+    def getMin(self):
+        return self.stack[-1][1]
