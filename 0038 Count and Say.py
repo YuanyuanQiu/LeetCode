@@ -1,3 +1,4 @@
+# 双指针
 def countAndSay(n):
     res = ["1",]  # 当前输出外观res数列
     r = 1
@@ -16,38 +17,24 @@ def countAndSay(n):
         res =  tmp   # 节省空间，利用上一行计算下一行，故直接用计算出的当前行替换上一行
     return "".join(res)
 
-# def countAndSay(n):
-#     if n == 1:
-#         return '1'
-
-#     pre = self.countAndSay(n-1)
+# 递归
+def countAndSay(n):
+    if n == 1:
+        return '1'
     
-#     if len(pre) == 1:
-#         return pre + '1'
+    last = self.countAndSay(n-1)
+    ans = ''
+    l = 0
+    r = l + 1
+    while r < len(last):
+        if last[r] == last[l]:
+            r += 1
+        else:
+            ans += str(r-l) + last[l]
+            l = r
+            r = l + 1
+    ans += str(r-l) + last[l]
 
-#     ans = ''
-#     count = 1
-#     for i in range(1,len(pre)):
-#         # i与i-1不同 & i不是最后一个：
-#         if pre[i] != pre[i-1] and i != len(pre) - 1:
-#             ans += str(count)
-#             ans += pre[i-1]
-#             count = 1
-#         # i与i-1不同 & i是最后一个：
-#         elif pre[i] != pre[i-1] and i == len(pre) - 1:
-#             ans += str(count)
-#             ans += pre[i-1];
-#             ans += '1'
-#             ans += pre[i]
-#         # i与i-1相同 & i不是最后一个：
-#         elif pre[i] == pre[i-1] and i != len(pre) - 1:
-#             count += 1
-#         # i与i-1相同 & i是最后一个：
-#         else:
-#             count += 1
-#             ans += str(count)
-#             ans += pre[i-1]
-
-#     return ans
+    return ans
 
 print(countAndSay(5))
