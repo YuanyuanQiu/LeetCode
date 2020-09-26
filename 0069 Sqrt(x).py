@@ -16,18 +16,19 @@
 #     return m
 
 def mySqrt(x):
+    # # 为了照顾到 0 把左边界设置为 0
     left = 0
-    right = x//2+1
+    # 为了照顾到 1 把右边界设置为 x // 2 + 1
+    right = x // 2 + 1
     while left < right:
-        mid = left + (right-left)//2+1 #取右中位数
+        # 为了照顾到 1 把右边界设置为 x // 2 + 1
+        mid = left + (right - left + 1) // 2
         square = mid * mid
         if square>x:
             right = mid-1
         else:
             left = mid
     return left
-        
-
 
 
 print(mySqrt(4))
