@@ -7,6 +7,7 @@
         
 #     return ans
 
+# 投机取巧法
 def plusOne(digits):
     num_str = ''
     for i in digits:
@@ -17,4 +18,17 @@ def plusOne(digits):
         ls.append(eval(i))
     return ls
 
-print(plusOne([1,3,5]))
+# 正常解法 从后往前依次判断末尾是否为9 如果是 则去除：
+def plusOne(digits):
+    newlst = []
+    while digits and digits[-1] == 9:
+        digits.pop()
+        newlst.append(0)
+    if not digits:
+        return [1] + newlst
+    else:
+        digits[-1] += 1
+        return digits + newlst
+    
+
+print(plusOne([1]))
