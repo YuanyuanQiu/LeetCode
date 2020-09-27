@@ -1,24 +1,10 @@
 # 方法一 : 合并后排序
 def merge(self, nums1, m, nums2, n):
-    """
-    :type nums1: List[int]
-    :type m: int
-    :type nums2: List[int]
-    :type n: int
-    :rtype: void Do not return anything, modify nums1 in-place instead.
-    """
     nums1[:] = sorted(nums1[:m] + nums2)
 
 
 # 方法二 : 双指针 / 从前往后
 def merge(self, nums1, m, nums2, n):
-    """
-    :type nums1: List[int]
-    :type m: int
-    :type nums2: List[int]
-    :type n: int
-    :rtype: void Do not return anything, modify nums1 in-place instead.
-    """
     # Make a copy of nums1.
     nums1_copy = nums1[:m] 
     nums1[:] = []
@@ -45,13 +31,6 @@ def merge(self, nums1, m, nums2, n):
         
 # 方法三 : 双指针 / 从后往前
 def merge(self, nums1, m, nums2, n):
-    """
-    :type nums1: List[int]
-    :type m: int
-    :type nums2: List[int]
-    :type n: int
-    :rtype: void Do not return anything, modify nums1 in-place instead.
-    """
     # two get pointers for nums1 and nums2
     p1 = m - 1
     p2 = n - 1
