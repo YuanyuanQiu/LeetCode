@@ -1,19 +1,17 @@
 def getRow(rowIndex: int):
     if rowIndex == 0:
         return [1]
-    elif rowIndex == 1:
-        result = [1,1]
-    else:
-        i = 2
-        begin = [1,1]
-        while i <= rowIndex:
-            result = []
-            for j in range(len(begin)-1):
-                result.append(begin[j]+begin[j+1])
-            result.insert(0,1)
-            result.append(1)
-            i+=1
-            begin = result
-    return result
+    if rowIndex == 1:
+        return [1,1]
+    
+    pre = [1,1]
+    for i in range(2,rowIndex+1):
+        ans = [1]
+        for j in range(len(pre)-1):
+            ans.append(pre[j]+pre[j+1])
+        ans.append(1)
+        pre = ans
+    
+    return ans
 
 print(getRow(4))
