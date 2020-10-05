@@ -4,6 +4,7 @@
 #         self.val = x
 #         self.next = None
 
+# 拼接两链表
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         ha, hb = headA, headB
