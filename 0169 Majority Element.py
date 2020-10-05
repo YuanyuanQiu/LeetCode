@@ -28,10 +28,6 @@ def majorityElement(nums):
 计数阶段：计算对抗结果中最后留下的候选人票数是否有效
 '''
 def majorityElement(self, nums):
-    """
-    :type nums: List[int]
-    :rtype: int
-    """
     major = 0
     count = 0
     
@@ -44,5 +40,6 @@ def majorityElement(self, nums):
             count = count - 1
 
     return major
+
 
 print(majorityElement([3,2,3]))
