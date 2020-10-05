@@ -1,13 +1,14 @@
 # 字典
-# def majorityElement(nums):
-#     n = len(nums)
-#     dic = {}
-#     for i in nums:
-#         if i not in dic:
-#             dic[i]=0
-#         dic[i]+=1
-#         if dic[i]>n/2:
-#             return i
+def majorityElement(nums):
+    n = len(nums)
+    dic = {}
+    for i in nums:
+        if i not in dic:
+            dic[i]=0
+        dic[i]+=1
+        if dic[i]>n/2:
+            return i
+
 
 # 一个随机的下标很有可能存有众数
 import random
@@ -19,10 +20,9 @@ def majorityElement(nums):
             if sum(1 for elem in nums if elem == candidate) > majority_count:
                 return candidate
 
-'''
-摩尔投票法（Boyer–Moore majority vote algorithm），也被称作「多数投票法」，
-算法解决的问题是：如何在任意多的候选人中（选票无序），选出获得票数最多的那个。
 
+# 摩尔投票法（Boyer–Moore majority vote algorithm），也被称作「多数投票法」
+'''
 算法可以分为两个阶段：
 对抗阶段：分属两个候选人的票数进行两两对抗抵消
 计数阶段：计算对抗结果中最后留下的候选人票数是否有效
