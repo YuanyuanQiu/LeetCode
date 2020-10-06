@@ -1,15 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 13 03:42:29 2020
-
-@author: ToxicCat
-"""
-
+# fives = n/5^1 + n/5^2 + n/5^3 + .... till 5^x > n
 def trailingZeroes(n):
-    count=0
-    while n>0:
-        count+=n//5
-        n=n//5
-    return count
-
-print(trailingZeroes(30))
+    zero_count = 0
+    current_multiple = 5 # Denominator
+    
+    while n >= current_multiple: # Numerator >= Denominator
+        zero_count += n // current_multiple
+        current_multiple *= 5
+    
+    return zero_count
