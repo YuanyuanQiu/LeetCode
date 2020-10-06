@@ -1,16 +1,18 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 27 06:14:58 2020
-
-@author: ToxicCat
-"""
-
+# 动态规划
 def rob(nums):
-    cur,pre = 0,0
-    for i in nums:
-        cur,pre = max(pre+i,cur),cur # if pre+i>cur, cur=per+i
-        print(cur,pre)
-    return cur
+    # 边界条件
+    if not nums:
+        return 0
+    size = len(nums)
+    if size == 1:
+        return nums[0]
+    # dp[i-2], dp[i-1]滚动数组
+    first, second = nums[0], max(nums[0], nums[1])
+    
+    # 转移方程 dp[i]=max(dp[i−2]+nums[i],dp[i−1])
+    for i in range(2, size):
+        first, second = second, max(first + nums[i], second)
+    
+    return second
 
 print(rob([2,7,9,3,1]))
-        
