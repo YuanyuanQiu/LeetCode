@@ -36,9 +36,11 @@ def isIsomorphic(s, t):
 
 
 # 同构代表两个字符串中每个位置上字符在自身第一次出现的索引相同
-# map(function, iterable, ...)
 def isIsomorphic(s, t):
-    return [*map(s.index, s)] == [*map(t.index, t)]
+    for i in range(len(s)):
+        if s.index(s[i]) != t.index(t[i]):
+            return False
+    return True
 
 print(isIsomorphic("abab","baba"))
         
