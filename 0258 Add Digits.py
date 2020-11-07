@@ -20,5 +20,3 @@ def addDigits(num):
     return num % 9
 
 print(addDigits(38))
-            
-        
