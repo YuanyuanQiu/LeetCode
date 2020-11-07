@@ -8,15 +8,16 @@
 #             num = count
 #     return num
 
-def addDigits(num):
-    while num >= 10: # 两位数以上
-        sum = 0
-        while num > 0:
-            sum += num % 10 # 取最后一位数
-            num //= 10 # 去掉最后一位
-        num = sum
-    return num
 
+def addDigits(num):
+    if num == 0:
+        return 0
+
+    if num % 9 == 0:
+        return 9
+    
+    # F(N) = N - 9xM, M = (M1+M2+M3+...)
+    return num % 9
 
 print(addDigits(38))
             
