@@ -16,10 +16,10 @@ def intersect(nums1, nums2):
             hash[num] += 1
 
     res = []
-    for num2 in nums2:
-        if num2 in hash and hash[num2] > 0:
-            res.append(num2)
-            hash[num2] -= 1
+    for num in nums2:
+        if num in hash and hash[num] > 0:
+            res.append(num)
+            hash[num] -= 1
     return res
 
 
