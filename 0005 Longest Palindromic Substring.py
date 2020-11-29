@@ -1,8 +1,6 @@
-# 对于一个子串而言，如果它是回文串，并且长度大于 22，那么将它首尾的两个字母去除之后，
-# 它仍然是个回文串。
 def longestPalindrome(s):
     n = len(s)
-    dp = [[False] * n for _ in range(n)] # flag
+    dp = [[False] * n for _ in range(n)]
     ans = ""
     # 枚举子串的长度 l+1
     for l in range(n):
@@ -11,14 +9,16 @@ def longestPalindrome(s):
             j = i + l
             if j >= len(s):
                 break
-            
-            if l == 0: # 1个字符
+            # 子串长度1：必为True
+            if l == 0:
                 dp[i][j] = True
-            elif l == 1: # 2个字符
+            # 子串长度2：相等为True
+            elif l == 1:
                 dp[i][j] = (s[i] == s[j])
-            else: # 3个及以上字符
+            # 子串长度>2
+            else:
                 dp[i][j] = (dp[i + 1][j - 1] and s[i] == s[j])
-                
+            # l + 1 为子串长度
             if dp[i][j] and l + 1 > len(ans):
                 ans = s[i:j+1]
     return ans
