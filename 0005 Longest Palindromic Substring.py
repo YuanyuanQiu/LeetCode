@@ -39,7 +39,9 @@ def expandAroundCenter(self, s, left, right):
 def longestPalindrome(self, s: str) -> str:
     start, end = 0, 0
     for i in range(len(s)):
+        # 'a' -> 'bab'
         left1, right1 = self.expandAroundCenter(s, i, i)
+        # 'aa' -> 'baab'
         left2, right2 = self.expandAroundCenter(s, i, i + 1)
         if right1 - left1 > end - start:
             start, end = left1, right1
