@@ -1,3 +1,5 @@
+# recursion
+# (left)right
 def generateParenthesis(n):
     if n == 0:
         return ['']
