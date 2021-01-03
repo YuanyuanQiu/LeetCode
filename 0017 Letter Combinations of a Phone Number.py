@@ -1,27 +1,23 @@
-def letterCombinations(digits: str):
-    conversion={'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs',
-                '8':'tuv','9':'wxyz'}
-    
-    if len(digits)==0:
-        return []
-    
-    product=['']
-    result = []
-    k = 0
-    while k<len(digits):
-        for i in product:
-            for j in conversion[digits[k]]:
-                result.append(i+j)
-        product = result
-        result = []
-        k+=1
-    
-    # for k in digits:
-    #     product=[i+j for i in product for j in conversion[k]]
-    return product
-        
-print(letterCombinations('234'))
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits: return []
 
+        phone = {'2':['a','b','c'],
+                 '3':['d','e','f'],
+                 '4':['g','h','i'],
+                 '5':['j','k','l'],
+                 '6':['m','n','o'],
+                 '7':['p','q','r','s'],
+                 '8':['t','u','v'],
+                 '9':['w','x','y','z']}
+                
+        def backtrack(conbination,nextdigit):
+            if len(nextdigit) == 0:
+                res.append(conbination)
+            else:
+                for letter in phone[nextdigit[0]]:
+                    backtrack(conbination + letter,nextdigit[1:])
 
-
-
+        res = []
+        backtrack('',digits)
+        return res
