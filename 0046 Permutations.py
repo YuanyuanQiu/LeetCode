@@ -21,22 +21,20 @@
 #     return res
 
 def permute(nums):
+    if len(nums) <= 1:
+        return [nums]
+    
     res = []
-    
-    # 将num中数字逐步移至tmp，移完时返回结果
-    def backtrack(nums, tmp):
-        # 当nums为空时，返回结果
-        if not nums:
-            res.append(tmp)
-            return 
+    def backtrack(temp_list, remain):
+        if not remain:
+            res.append(temp_list)
+            return
         
-        # 遍历后调用自身
-        for i in range(len(nums)):
-            # print(i,nums,nums[:i] + nums[i+1:],tmp + [nums[i]])
-            backtrack(nums[:i] + nums[i+1:], tmp + [nums[i]])
-    
-    backtrack(nums, [])
-    
+        for i in range(len(remain)):
+            backtrack(temp_list + [remain[i]], remain[:i] + remain[i+1:])
+     
+    backtrack([], nums)
     return res
+
 
 print(permute([1,2,3]))
