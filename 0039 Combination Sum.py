@@ -23,24 +23,26 @@
 # 回溯递归剪枝
 class Solution:
     def combinationSum(candidates, target):
-        candidates = sorted(candidates)
-
-        ans = []
-
-        def find(s, use, remain):
-            for i in range(s, len(candidates)):
-                c = candidates[i]
-                if c == remain: # 满足条件，加入答案
-                    ans.append(use + [c])
-                if c < remain: # 不足，继续递归
-                    find(i, use + [c], remain - c) # 往后缩小candidate
-                if c > remain: # 超出，退出
-                    return
+        if not candidates: #先解决空输入的情况
+            return []
         
-        find(0, [], target)
-
-        return ans
-
+        candidates.sort()  #排序
+        res=[]
+        def backtrack(i,temp_sum,temp_list): 
+            """
+            i：遍历到candidates数组中第几个元素
+            temp_sum：目前遍历数组的和
+            temp_list：目前遍历的数组
+            """
+            if temp_sum==target:
+                res.append(temp_list)
+                return
+            if temp_sum>target:
+                return
+            for j in range(i,len(candidates)):
+                backtrack(j,temp_sum+candidates[j],temp_list+[candidates[j]])
+        backtrack(0,0,[])
+        return res
 
 if __name__ == '__main__':
     candidates = [2, 3, 6, 7]
