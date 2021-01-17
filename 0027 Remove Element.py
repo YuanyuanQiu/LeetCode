@@ -1,26 +1,14 @@
-# def removeElement(nums, val):
-#     n = len(nums)
-#     if n == 0:
-#         return 0
-#     if n == 1:
-#         if nums[0] == val:
-#             return 0
-#         else:
-#             return 1
-#     i = 0
-#     j = 0
-#     while j <= len(nums)-1:
-#         # print(i, j, nums)
-#         if nums[j] != val:
-#             j += 1
-#             i += 1
-#         else:
-#             nums.remove(nums[j])
-#             j = i
+# fast-slow pointer 
+def removeElement(nums, val):
+    f,s = 0,0
 
-#     return i
+    while f < len(nums):
+        if nums[f] != val:
+            nums[s] = nums[f]
+            s += 1
+        f += 1
 
-# print(removeElement([3,2,2,3], 3))
+    return s
 
 
 def removeElement(nums, val):
@@ -28,3 +16,6 @@ def removeElement(nums, val):
         if i == val:
             nums.remove(val)
     return len(nums)
+
+
+ print(removeElement([3,2,2,3], 3))

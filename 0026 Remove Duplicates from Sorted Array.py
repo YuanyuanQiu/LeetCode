@@ -13,15 +13,13 @@
 
 
 def removeDuplicates(nums):
-    p, q = 0, 1
-    while q < len(nums):
-        if nums[p] == nums[q]:
-            q = q + 1
-        else:
-            nums[p+1] = nums[q]
-            p = p + 1
-            q = q + 1
-    return len(nums[0:p+1])
+    f,s = 1,0
+    while f < len(nums):
+        if nums[f] != nums[s]:
+            nums[s+1] = nums[f]
+            s += 1
+        f += 1
+    return len(nums[0:s+1])
 
 
 print(removeDuplicates([1,1,2,3,3]))
