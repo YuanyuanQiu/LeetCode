@@ -40,17 +40,26 @@ e.g. 6
 '''
 
 
-def climbStairs(n: int) -> int:
-    import math
-    ways = 1
-    m = n//2
-    if m == 0:
-        return ways
-    else:
-        for i in range(1,m+1):
-            ways += math.factorial(n-2*i+i)/(math.factorial(i)*\
-                                             math.factorial(n-2*i))
-    return int(ways)
+#def climbStairs(n: int) -> int:
+#    import math
+#    ways = 1
+#    m = n//2
+#    if m == 0:
+#        return ways
+#    else:
+#        for i in range(1,m+1):
+#            ways += math.factorial(n-2*i+i)/(math.factorial(i)*\
+#                                             math.factorial(n-2*i))
+#    return int(ways)
 
-print(climbStairs(3))
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n < 3:
+            return n
+        dp = [0 for _ in range(n+1)]
+        dp[1] = 1
+        dp[2] = 2
+        for i in range(3,n+1):
+            dp[i] = dp[i-2] + dp[i-1]
+        return dp[n]
     
