@@ -1,12 +1,3 @@
-# def plusOne(digits):
-#     n = int(''.join(list(map(str,digits)))) + 1
-    
-#     ans = []
-#     for i in str(n):
-#         ans.append(i)
-        
-#     return ans
-
 # 投机取巧法
 def plusOne(digits):
     num_str = ''
@@ -17,6 +8,7 @@ def plusOne(digits):
     for i in num_str:
         ls.append(eval(i))
     return ls
+
 
 # 正常解法 从后往前依次判断末尾是否为9 如果是 则去除：
 def plusOne(digits):
@@ -30,5 +22,23 @@ def plusOne(digits):
         digits[-1] += 1
         return digits + newlst
     
+
+# Math
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        digits = digits[::-1]
+        n = len(digits)
+        s = 0
+        l = 0
+        res = []
+        while l < n or s:
+            if l < n:
+                s += digits[l]
+            if l == 0:
+                s += 1
+            res.append(s % 10)
+            s = s // 10
+            l += 1
+        return res[::-1]
 
 print(plusOne([1]))
