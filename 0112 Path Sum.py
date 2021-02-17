@@ -1,8 +1,8 @@
 class Solution:
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+    def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
         if not root:
             return False
         if not root.left and not root.right:
-            return sum == root.val
-        return self.hasPathSum(root.left, sum - root.val) \
-            or self.hasPathSum(root.right, sum - root.val)
+            return targetSum == root.val
+        return self.hasPathSum(root.left, targetSum - root.val) \
+            or self.hasPathSum(root.right, targetSum - root.val)
