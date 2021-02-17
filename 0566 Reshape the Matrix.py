@@ -7,10 +7,10 @@ def matrixReshape(nums, r, c):
         for j in i:
             ls.append(j)
 
-    ls1 = []
+    res = []
     for k in range(r):
-        ls1.append(ls[k*c:k*c+c])
+        res.append(ls[k*c:k*c+c])
         
-    return ls1
+    return res
 
 print(matrixReshape([[1,2,3,4]],2,2))
