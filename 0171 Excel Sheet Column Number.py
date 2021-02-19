@@ -1,10 +1,7 @@
 def titleToNumber(s):
-    origin = ord('A')
-    s = s[::-1]
     ans = 0
-    for i in range(len(s)):
-        gap = ord(s[i]) - origin
-        ans += pow(26,i)*(1 + gap)
+    for i in s:
+        ans = ans * 26 + ord(i) - ord('A') + 1
     return ans
 
 print(titleToNumber('AA'))
