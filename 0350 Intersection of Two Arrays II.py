@@ -3,23 +3,19 @@
 #     for i in nums1:
 #         if i in nums2:
 #             intersection.append(i)
-#             nums1[nums1.index(i)]='x'
 #             nums2[nums2.index(i)]='x'
 #     return intersection
             
 def intersect(nums1, nums2):
-    hash = {}
+    dic = {}
     for num in nums1:
-        if num not in hash:
-            hash[num] = 1
-        else: 
-            hash[num] += 1
+        dic[num] = dic.get(num,0) + 1
 
     res = []
     for num in nums2:
-        if num in hash and hash[num] > 0:
+        if num in dic and dic[num] > 0:
             res.append(num)
-            hash[num] -= 1
+            dic[num] -= 1
     return res
 
 
