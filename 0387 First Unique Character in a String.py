@@ -22,5 +22,23 @@ def firstUniqChar(s):
             return i
     return -1
 
+
+def firstUniqChar(self, s: str) -> int:
+    sset = set(s)
+    dic = {}
+    for i in range(len(s)):
+        if s[i] not in sset:
+            continue
+        elif s[i] in dic:
+            sset.remove(s[i])
+        else:
+            dic[s[i]] = i
+    if not sset:
+        return -1
+    ls = list(sset)
+    ls.sort(key = lambda x: dic[x])
+    return dic[ls[0]]
+
+
 print(firstUniqChar("loveleetcode"))
         
