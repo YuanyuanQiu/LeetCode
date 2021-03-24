@@ -21,6 +21,7 @@ def isPalindrome(self, head: ListNode) -> bool:
         cur.next = pre
         pre = cur
         cur = tmp
+    # pre <= head
     while pre:
         if head.val != pre.val:
             return False
