@@ -26,4 +26,30 @@ def threeSumClosest(nums, target):
         
     return res
             
-print(threeSumClosest([-100,-98,-2,-1], -101))       
+
+def threeSumClosest(self, nums: List[int], target: int) -> int:
+    n = len(nums)
+    nums.sort()
+    res = sum(nums[:3])
+    for i in range(n):
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        
+        l, r = i+1, n-1
+        while l < r:
+            total = nums[i] + nums[l] + nums[r]
+            if abs(total-target) < abs(res-target):
+                res = total
+            if total == target:
+                return total
+                while l < r and nums[l] == nums[l+1]:
+                    l += 1
+                while l < r and nums[r] == nums[r-1]:
+                    r -= 1
+                l += 1
+                r -= 1
+            elif total > target:
+                r -= 1
+            else:
+                l += 1
+    return res   
