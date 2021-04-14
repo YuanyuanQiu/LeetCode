@@ -1,5 +1,4 @@
 def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
-    # 设置 dummyNode 是这一类问题的一般做法
     dummy_node = ListNode(-1)
     dummy_node.next = head
     pre = dummy_node
@@ -8,8 +7,8 @@ def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
 
     cur = pre.next
     for _ in range(right - left):
-        next = cur.next
-        cur.next = next.next
-        next.next = pre.next
-        pre.next = next
+        tmp = cur.next
+        cur.next = tmp.next
+        tmp.next = pre.next
+        pre.next = tmp
     return dummy_node.next
