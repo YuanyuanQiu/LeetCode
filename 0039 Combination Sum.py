@@ -21,32 +21,16 @@
 # print(combinationSum(candidates = [2,3,6,7], target = 7))
 
 # 回溯递归剪枝
-class Solution:
-    def combinationSum(candidates, target):
-        if not candidates: #先解决空输入的情况
-            return []
-        
-        candidates.sort()  #排序
-        res=[]
-        def backtrack(i,temp_sum,temp_list): 
-            """
-            i：遍历到candidates数组中第几个元素
-            temp_sum：目前遍历数组的和
-            temp_list：目前遍历的数组
-            """
-            if temp_sum==target:
-                res.append(temp_list)
-                return
-            if temp_sum>target:
-                return
-            for j in range(i,len(candidates)):
-                backtrack(j,temp_sum+candidates[j],temp_list+[candidates[j]])
-        backtrack(0,0,[])
-        return res
-
-if __name__ == '__main__':
-    candidates = [2, 3, 6, 7]
-    target = 7
-    solution = Solution()
-    result = solution.combinationSum(candidates, target)
-    print(result)
+def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    res = []
+    def dfs(history, remain):
+        if sum(history) == target:
+            res.append(history)
+            return
+        elif sum(history) > target:
+            return
+        else:
+            for i in range(len(remain)):
+                dfs(history + [remain[i]], remain[i:])
+    dfs([], candidates)
+    return res
