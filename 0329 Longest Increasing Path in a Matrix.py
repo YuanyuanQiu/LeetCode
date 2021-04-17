@@ -10,7 +10,8 @@ def longestIncreasingPath(matrix):
         print(matrix[i][j])
         if matrix[i][j] == 'seen':
             res = max(res, len(history))
-        elif (not history) or (history and matrix[i][j] > history[-1]):
+            return
+        if (not history) or (history and matrix[i][j] > history[-1]):
             val = matrix[i][j]
             matrix[i][j] = 'seen'
             print(matrix)
