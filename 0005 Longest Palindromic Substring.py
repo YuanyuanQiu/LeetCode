@@ -49,4 +49,27 @@ def longestPalindrome(self, s: str) -> str:
             start, end = left2, right2
     return s[start: end + 1]
 
+
+# Expand Around Center 2
+def longestPalindrome(self, s: str) -> str:
+    n = len(s)
+    if n <= 1:
+        return s
+    # s[i:j+1]
+    res = ''
+    length = 0
+    def expand(i,j):
+        nonlocal length, res
+        if i - 1 >= 0 and j + 1 < n and s[i-1] == s[j+1]:
+            expand(i-1,j+1)
+        else:
+            if len(s[i:j+1]) > length:
+                length = len(s[i:j+1])
+                res = s[i:j+1]
+    for i in range(n-1):
+        expand(i,i)
+        if s[i] == s[i+1]:
+            expand(i,i+1)
+    return res
+
 print(longestPalindrome("babad"))
