@@ -1,13 +1,13 @@
 # DFS
 class Solution:
     def findCircleNum(self, M: List[List[int]]) -> int:
-        n = len(M)
+        n = len(isConnected)
         visited = set()
         count = 0
 
         def dfs(i):
             for j in range(n):
-                if M[i][j] and j not in visited:
+                if isConnected[i][j] and j not in visited:
                     visited.add(j)
                     dfs(j)
 
