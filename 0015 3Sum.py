@@ -1,40 +1,28 @@
 def threeSum(nums):
-    n=len(nums)
-    res=[]
-    
-    # 特判
-    if(not nums or n<3):
+    n = len(nums)
+    if n < 3:
         return []
-    
-    # 排序
     nums.sort()
-    
-    # 遍历
-    res=[]
+    res = []
     for i in range(n):
-        # 若>0: 因为已排序好，后面不可能有3个数和为0，直接返回结果
-        if(nums[i]>0):
+        if nums[i] > 0:
             return res
-        
-        # 跳过重复元素避免重复解
-        if(i>0 and nums[i]==nums[i-1]):
+        if i > 0 and nums[i] == nums[i-1]:
             continue
-        
-        # 双指针
-        L=i+1
-        R=n-1
-        while(L<R):
-            if(nums[i]+nums[L]+nums[R]==0):
-                res.append([nums[i],nums[L],nums[R]])
-                # 跳过重复元素
-                while(L<R and nums[L]==nums[L+1]):
-                    L=L+1
-                while(L<R and nums[R]==nums[R-1]):
-                    R=R-1
-                L=L+1
-                R=R-1
-            elif(nums[i]+nums[L]+nums[R]>0):
-                R=R-1
+        l = i + 1
+        r = n - 1
+        while l < r:
+            val = nums[i] + nums[l] + nums[r]
+            if val == 0:
+                res.append([nums[i], nums[l], nums[r]])
+                while l < r and nums[l] == nums[l+1]:
+                    l += 1
+                while l < r and nums[r] == nums[r-1]:
+                    r -= 1
+                l += 1
+                r -= 1
+            elif val > 0:
+                r -= 1
             else:
-                L=L+1
+                l += 1       
     return res
