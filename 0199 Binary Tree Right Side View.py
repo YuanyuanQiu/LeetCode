@@ -9,19 +9,19 @@ class Solution:
         if not root:
             return []
         queue = [root]
-        res = []
+        levels = []
         while queue:
-            curl = []
-            nextl = []
+            cur_level = []
+            next_queue = []
             for i in queue:
-                curl.append(i.val)
+                cur_level.append(i.val)
                 if i.left:
-                    nextl.append(i.left)
+                    next_queue.append(i.left)
                 if i.right:
-                    nextl.append(i.right)
-            res.append(curl)
-            queue = nextl
-        ans = []
-        for i in res:
-            ans.append(i[-1])
-        return ans
+                    next_queue.append(i.right)
+            levels.append(cur_level)
+            queue = next_queue
+        res = []
+        for i in levels:
+            res.append(i[-1])
+        return res
