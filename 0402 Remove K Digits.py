@@ -1,15 +1,16 @@
 def removeKdigits(self, num: str, k: int) -> str:
-    numStack = []
-    
-    # 构建单调递增的数字串
-    for digit in num:
-        while k and numStack and numStack[-1] > digit:
-            numStack.pop()
+    n = len(num)
+    if n <= k:
+        return '0'
+    stack = ''
+    for i in range(n):
+        while k and stack and int(num[i]) < int(stack[-1]):
+            stack = stack[:-1]
             k -= 1
-        numStack.append(digit)
-    
-    # 如果 K > 0（单调递增），删除末尾的 K 个字符
-    finalStack = numStack[:-k] if k else numStack
-    
-    # 抹去前导零
-    return "".join(finalStack).lstrip('0') or "0"
+        stack += num[i]
+    # k > 0单调递增，去掉末尾k个数字
+    if k:
+        res = stack[:-k]
+    else:
+        res = stack
+    return res.lstrip('0') or '0'
