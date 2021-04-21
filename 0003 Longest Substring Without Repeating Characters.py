@@ -1,25 +1,19 @@
 #  滑动窗口
-#def lengthOfLongestSubstring(self, s: str) -> int:
-#    n = len(s)
-#    if n < 2:
-#        return n
-#    window = s[0]
-#    l = 1
-#    res = 0
-#    while l < n:
-#        # s[l] not in window
-#        while l < n and s[l] not in window:
-#            window += s[l]
-#            l += 1
-#        # s[l] in window
-#        res = max(len(window), res)
-#        if l == n:
-#            return res
-#        idx = window.index(s[l])
-#        window = window[idx+1:]
-#        window += s[l]
-#        l += 1
-#    return res
+def lengthOfLongestSubstring(self, s: str) -> int:
+    n = len(s)
+    if n <= 1:
+        return n
+    window = set()
+    res = 0
+    l, r = 0, 0
+    while r < n:
+        while r < n and s[r] not in window:
+            window.add(s[r])
+            r += 1
+        res = max(res, len(window))
+        window.remove(s[l])
+        l += 1
+    return res
 
 def lengthOfLongestSubstring(s):
     ans = 0
