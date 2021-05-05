@@ -1,22 +1,22 @@
 def generateMatrix(n):
-    matrix = [[1 for _ in range(n)] for _ in range(n)]
+    res = [[-1 for _ in range(n)] for _ in range(n)]
     # (0,1) -> (1,0) -> (0,-1) -> (-1,0) -> (0,1) ...
-    # i = j, j=-i
-    visited = [[False for _ in range(n)] for _ in range(n)]
-    visited[0][0] = True
-    i, j = 0, 0
-    direction = [0,1]
-    val = 1
-    
-    while val < n * n:
-        while 0 <= i + direction[0] < n and 0 <= j + direction[1] < n and\
-        visited[i + direction[0]][j + direction[1]] != True:
-            i += direction[0]
-            j += direction[1]
-            val += 1
-            matrix[i][j] = val
-            visited[i][j] = True
-        direction[0], direction[1] = direction[1], -direction[0]
-    return matrix
+    # i = j, j = -i
+    m = 1
+    i = j = 0
+    di, dj = 0, 1
+    while m <= n**2:
+        res[i][j] = m
+        m += 1
+        newi = i + di
+        newj = j + dj
+        if (0 <= newi < n and 0 <= newj < n) and res[newi][newj] == -1:
+            i = newi
+            j = newj
+        else:
+            di, dj = dj, -di
+            i += di
+            j += dj
+    return res
 
 print(generateMatrix(3))

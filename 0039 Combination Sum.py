@@ -24,6 +24,8 @@
 def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
     res = []
     def dfs(history, remain):
+        if not remain:
+                return
         if sum(history) == target:
             res.append(history)
             return
