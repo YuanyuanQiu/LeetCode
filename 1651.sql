@@ -18,7 +18,8 @@ b as (select
         ifnull(a.ride_distance,0) as ride_distance,
         ifnull(a.ride_duration,0) as ride_duration
     from f
-    left join a on f.n = a.month)
+    left join a
+    on f.n = a.month)
 
 select *
 from
