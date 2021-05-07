@@ -21,7 +21,6 @@ def mySqrt(x):
     # 为了照顾到 1 把右边界设置为 x // 2 + 1
     right = x // 2 + 1
     while left < right:
-        # 为了照顾到 1 把右边界设置为 x // 2 + 1
         mid = left + (right - left + 1) // 2
         square = mid * mid
         if square>x:
