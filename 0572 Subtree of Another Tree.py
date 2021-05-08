@@ -5,29 +5,14 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    '''
-    判断 t 是否为 s 的子树的三个条件是或的关系，即：
-    1. 当前两棵树相等；
-    2. 或者，t 是 s 的左子树；
-    3. 或者，t 是 s 的右子树。
-    
-    '''
-    def isSubtree(self, s, t):
-        if not s and not t:
+    def isSame(root1, root2):
+        if not root1 and not root2:
             return True
-        if not s or not t:
+        if not root1 or not root2:
             return False
-        return self.isSameTree(s, t) or self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
-    
-    '''
-    判断两个树是否相等的三个条件是与的关系，即：
-    1. 当前两个树的根节点值相等；
-    2. 并且，s 的左子树和 t 的左子树相等；
-    3. 并且，s 的右子树和 t 的右子树相等。
-    '''   
-    def isSameTree(self, s, t):
-        if not s and not t:
-            return True
-        if not s or not t:
-            return False
-        return s.val == t.val and self.isSameTree(s.left, t.left) and self.isSameTree(s.right, t.right)
+        return root1.val == root2.val and isSame(root1.left, root2.left) and isSame(root1.right, root2.right)
+    if not root and not subRoot:
+        return True
+    if not root or not subRoot:
+        return False
+    return isSame(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)

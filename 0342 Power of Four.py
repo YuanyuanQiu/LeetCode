@@ -1,9 +1,7 @@
-def isPowerOfFour(num):
-    while num>=4:
-        if num % 4 != 0:
+def isPowerOfFour(self, n: int) -> bool:
+    while n >= 4:
+        if n % 4 != 0:
             return False
         else:
-            num /= 4
-    return num == 1
-
-print(isPowerOfFour(5))
+            n /= 4
+    return n == 1

@@ -43,17 +43,12 @@
 
 class Solution:
     def depthSum(self, nestedList):
-        """
-        :type nestedList: List[NestedInteger]
-        :rtype: int
-        """
-        return self.fun(nestedList, 1)
-
-    def fun(self, nestedList, level):
-        tot = 0
-        for i in nestedList:
-            if i.isInteger():
-                tot += i.getInteger() * level
-            else:
-                tot += self.fun(i.getList(), level + 1)
-        return tot
+        def dfs(nestedList, level):
+            res = 0
+            for i in nestedList:
+                if i.isInteger():
+                    res += i.getInteger() * level
+                else:
+                    res += dfs(i.getList(), level + 1)
+            return res
+        return dfs(nestedList, 1)
