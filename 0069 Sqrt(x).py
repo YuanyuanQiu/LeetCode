@@ -21,7 +21,7 @@ def mySqrt(x):
     # 为了照顾到 1 把右边界设置为 x // 2 + 1
     right = x // 2 + 1
     while left < right:
-        mid = left + (right - left + 1) // 2
+        mid = left + (right - left + 1) // 2 # l + (r - l) // 2 在(1,2)情况下出现死循环
         square = mid * mid
         if square>x:
             right = mid-1
