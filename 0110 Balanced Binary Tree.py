@@ -1,14 +1,15 @@
 def isBalanced(self, root: TreeNode) -> bool:
-    def height(root: TreeNode) -> int:
-        if not root:
+    def depth(node):
+        if not node:
             return 0
-
-        leftHeight = height(root.left)
-        rightHeight = height(root.right)
-        # 不平衡条件：左右子树是否平衡，以当前节点为根的子树是否平衡
-        if leftHeight == -1 or rightHeight == -1 or abs(leftHeight - rightHeight) > 1:
+        left = depth(node.left)
+        right = depth(node.right)
+        if abs(left - right) > 1 or left == -1 or right == -1:
             return -1
         else:
-            return max(leftHeight, rightHeight) + 1
+            return 1 + max(left, right)
 
-    return height(root) >= 0
+    if depth(root) == -1:
+        return False
+    else:
+        return True
