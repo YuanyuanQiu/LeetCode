@@ -12,6 +12,9 @@ def wordSubsets(self, A: List[str], B: List[str]) -> List[str]:
 
     ans = []
     for a in A:
-        if all(x >= y for x, y in zip(count(a), bmax)):
+        for x, y in zip(count(a), bmax):
+            if x < y:
+                break
+        else:
             ans.append(a)
     return ans
