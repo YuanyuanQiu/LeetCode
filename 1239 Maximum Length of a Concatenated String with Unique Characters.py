@@ -11,7 +11,5 @@ def maxLength(self, arr: List[str]) -> int:
                 tmp = history + remain[i]
                 res = max(res, len(tmp))
                 dfs(tmp, remain[i+1:])
-            # else:
-            #     dfs(history, remain[i+1:])
     dfs('', arr)
     return res
