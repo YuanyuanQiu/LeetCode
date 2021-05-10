@@ -1,22 +1,18 @@
-class Solution:
-    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        if not matrix or not matrix[0]:
-            return list()
-        
-        rows, columns = len(matrix), len(matrix[0])
-        visited = [[False] * columns for _ in range(rows)]
-        total = rows * columns
-        order = [0] * total
-
-        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
-        row, column = 0, 0
-        directionIndex = 0
-        for i in range(total):
-            order[i] = matrix[row][column]
-            visited[row][column] = True
-            nextRow, nextColumn = row + directions[directionIndex][0], column + directions[directionIndex][1]
-            if not (0 <= nextRow < rows and 0 <= nextColumn < columns and not visited[nextRow][nextColumn]):
-                directionIndex = (directionIndex + 1) % 4
-            row += directions[directionIndex][0]
-            column += directions[directionIndex][1]
-        return order
+def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+    m, n = len(matrix), len(matrix[0])
+    visited = [[False for _ in range(n)] for _ in range(m)]
+    res = []
+    direction = [0,1]
+    # directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    # i = j, j = -i
+    i, j = 0, 0
+    for k in range(m * n):
+        res.append(matrix[i][j])
+        visited[i][j] = True
+        newi, newj = i + direction[0], j + direction[1]
+        if 0 <= newi < m and 0 <= newj < n and not visited[newi][newj]:
+            i, j = newi, newj
+        else:
+            direction[0], direction[1] = direction[1], -direction[0]
+            i, j = i + direction[0], j + direction[1]
+    return res

@@ -1,26 +1,30 @@
 def longestIncreasingPath(matrix):
-    m,n = len(matrix), len(matrix[0])
+    m, n = len(matrix), len(matrix[0])
     if m == 1 and n == 1:
         return 1
-    
-    directions = [(-1,0), (1,0), (0,-1), (0,1)]
+    record = [[0] * n for _ in range(m)] # 存储从（i，j）出发的最长递归路径
     res = 0
-    def dfs(history, i, j, matrix):
-        nonlocal res
-        print(matrix[i][j])
-        if matrix[i][j] == 'seen':
-            res = max(res, len(history))
-            return
-        if (not history) or (history and matrix[i][j] > history[-1]):
-            val = matrix[i][j]
-            matrix[i][j] = 'seen'
-            print(matrix)
-            for d in directions:
-                newi, newj = i + d[0], j + d[1]
-                if 0 <= newi < m and 0 <= newj < n:
-                    print('round',newi, newj)
-                    dfs(history + [val], newi, newj, matrix.copy())
-    dfs([], 0, 0, matrix.copy())
-    return res
+    directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
-print(longestIncreasingPath([[9,9,4],[6,6,8],[2,1,1]]))
+    def dfs(i, j):
+        nonlocal res
+        compare = [] # store path length for each direction
+        for dx, dy in directions:
+            x, y = i + dx, j + dy
+            if 0 <= x < m and 0 <= y < n and matrix[x][y] > matrix[i][j]:
+                if record[x][y]: # if path length is known
+                    compare.append(record[x][y])
+                else: # if path length is unknown
+                    compare.append(dfs(x, y))
+        # max neighbor path length + 1
+        record[i][j] = max(compare) + 1 if compare else 1
+        # update max result
+        res = max(res, record[i][j])
+        return record[i][j]
+
+    for i in range(m):
+        for j in range(n):
+            if not record[i][j]:
+                dfs(i, j)
+
+    return res
