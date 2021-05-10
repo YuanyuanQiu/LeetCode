@@ -1,22 +1,23 @@
 def findNumberOfLIS(self, nums: List[int]) -> int:
-    N = len(nums)
-    if N <= 1:
-        return N
-    lengths = [1] * N #lengths[i] = longest ending in nums[i]
-    counts = [1] * N #count[i] = number of longest ending in nums[i]
+    n = len(nums)
+    if n == 1:
+        return 1
 
-    for j, num in enumerate(nums):
-        for i in range(j): # nums[i] before nums[j]
-            if nums[i] < nums[j]: 
-                if lengths[i] >= lengths[j]:
-                    lengths[j] = 1 + lengths[i]
-                    counts[j] = counts[i]
-                elif lengths[i] + 1 == lengths[j]:
-                    counts[j] += counts[i]
+    dp = [1] * n # dp[i]：到nums[i]为止的最长递增子序列长度
+    count = [1] * n # count[i]：到nums[i]为止的最长递增子序列个数
+    max_length = 0
+    for i in range(1, n):
+        for j in range(i):
+            if nums[i] > nums[j]: # 遍历所有之前dp，若可增加num[i]
+                if dp[j] + 1 > dp[i]: # 说明长度增加，数量不变
+                    dp[i] = dp[j] + 1
+                    count[i] = count[j]
+                elif dp[j] + 1 == dp[i]: # 说明长度一样，数量增加
+                    count[i] += count[j]
+        max_length = max(max_length, dp[i])
 
-    longest = max(lengths)
     res = 0
-    for i, c in enumerate(counts):
-        if lengths[i] == longest:
-            res += c
+    for i in range(n):
+        if dp[i] == max_length:
+            res += count[i]
     return res
