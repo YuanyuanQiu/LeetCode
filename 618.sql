@@ -11,14 +11,3 @@ from
     from
         student)t 
 group by cur_rank
-
-# Know which continent has the most students
-/*select America, Asia, Europe
-from (select row_number() over(order by name) id, name as America
-        from student where continent = 'America') a
-left join (select row_number() over(order by name) id, name as Asia
-            from student where continent = 'Asia') b
-on a.id = b.id
-left join (select row_number() over(order by name) id, name as Europe
-            from student where continent = 'Europe') c
-on a.id = c.id*/

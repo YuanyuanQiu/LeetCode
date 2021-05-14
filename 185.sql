@@ -9,9 +9,10 @@
 
 
 select d.Name as Department, e.Name as Employee, e.Salary
-From
-    (select
-        *,
+from (select
+        Name,
+        Salary,
+        DepartmentId,
         dense_rank() over(partition by DepartmentId order by Salary desc) as rk
     from Employee) e
 join Department d
