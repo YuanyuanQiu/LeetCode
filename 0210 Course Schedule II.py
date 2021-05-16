@@ -1,25 +1,22 @@
 def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-    # 存储有向图 pre: [cur]
-    pres = collections.defaultdict(list)
+    # pre: [cur]
+    dic = collections.defaultdict(list)
     # 标记每个节点的状态：0=未搜索，1=搜索中，2=已完成
     visited = [0] * numCourses
     # 用数组来模拟栈，下标 0 为栈底，n-1 为栈顶
-    result = []
+    stack = []
     # 判断有向图中是否有环
     nocircle = True
 
     for info in prerequisites:
-        pres[info[1]].append(info[0])
+        dic[info[1]].append(info[0])
     
     def dfs(u: int):
         nonlocal nocircle
-        # 将节点标记为「搜索中」
-        visited[u] = 1
-        # 搜索其相邻节点
-        # 只要发现有环，立刻停止搜索
-        for v in pres[u]:
-            # 如果「未搜索」那么搜索相邻节点
-            if visited[v] == 0:
+        visited[u] = 1 # 搜索中
+        # 搜索其相邻节点，只要发现有环，立刻停止搜索
+        for v in dic[u]:
+            if visited[v] == 0: # 如果「未搜索」那么搜索相邻节点
                 dfs(v)
                 if not nocircle:
                     return
@@ -27,10 +24,9 @@ def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int
             elif visited[v] == 1:
                 nocircle = False
                 return
-        # 将节点标记为「已完成」
-        visited[u] = 2
+        visited[u] = 2 # 已完成
         # 将节点入栈
-        result.append(u)
+        stack.append(u)
     
     # 每次挑选一个「未搜索」的节点，开始进行深度优先搜索
     for i in range(numCourses):
@@ -42,4 +38,4 @@ def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int
     
     # 如果没有环，那么就有拓扑排序
     # 注意下标 0 为栈底，因此需要将数组反序输出
-    return result[::-1]
+    return stack[::-1]

@@ -1,24 +1,22 @@
-class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
-        if not digits: return []
-
-        phone = {'2':['a','b','c'],
-                 '3':['d','e','f'],
-                 '4':['g','h','i'],
-                 '5':['j','k','l'],
-                 '6':['m','n','o'],
-                 '7':['p','q','r','s'],
-                 '8':['t','u','v'],
-                 '9':['w','x','y','z']}
-                
-        def backtrack(conbination,nextdigit):
-            if len(nextdigit) == 0:
-                res.append(conbination)
-                return
-
-            for letter in phone[nextdigit[0]]:
-                backtrack(conbination + letter,nextdigit[1:])
-
-        res = []
-        backtrack('',digits)
-        return res
+def letterCombinations(self, digits: str) -> List[str]:
+    if not digits:
+        return []
+    dic = {'2':['a','b','c'],
+             '3':['d','e','f'],
+             '4':['g','h','i'],
+             '5':['j','k','l'],
+             '6':['m','n','o'],
+             '7':['p','q','r','s'],
+             '8':['t','u','v'],
+             '9':['w','x','y','z']}
+    
+    def dfs(history, remain):
+        if not remain:
+            res.append(history)
+            return
+        for i in dic[remain[0]]:
+            dfs(history + i, remain[1:])
+    
+    res = []
+    dfs('', digits)
+    return res
