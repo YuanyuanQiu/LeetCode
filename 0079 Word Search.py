@@ -1,37 +1,25 @@
 # depth-first search
-class Solution:
-    def exist(self, board: List[List[str]], word: str) -> bool:
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        
-        # board[i][j], word[k]
-        def check(i: int, j: int, k: int) -> bool:
-            # 字符不匹配
-            if board[i][j] != word[k]:
-                return False
-            # 已到字符串末尾
-            if k == len(word) - 1:
-                return True
-            
-            visited.add((i, j))
-            result = False
-            for di, dj in directions:
-                newi, newj = i + di, j + dj
-                # 判定不越界
-                if 0 <= newi < len(board) and 0 <= newj < len(board[0]):
-                    # 防止重复
-                    if (newi, newj) not in visited:
-                        # 递归
-                        if check(newi, newj, k + 1):
-                            result = True
-                            break
-            visited.remove((i, j))
-            return result
-
-        h, w = len(board), len(board[0])
-        visited = set()
-        for i in range(h):
-            for j in range(w):
-                if check(i, j, 0):
-                    return True
-        
+def exist(self, board: List[List[str]], word: str) -> bool:
+    m = len(board)
+    n = len(board[0])
+    if m * n < len(word):
         return False
+    
+    directions = [(0,1), (0,-1), (1,0), (-1,0)]
+    def dfs(i,j,history,remain,visited):
+        if history == word:
+            return True
+        if not remain:
+            return
+        for di, dj in directions:
+            newi, newj = i + di, j + dj
+            if 0 <= newi < m and 0 <= newj < n and board[newi][newj] == remain[0] and (newi,newj) not in visited:
+                if dfs(newi,newj,history + remain[0],remain[1:],visited + [(newi, newj)]):
+                    return True
+
+    for i in range(m):
+        for j in range(n):
+            if board[i][j] == word[0]:
+                if dfs(i,j,word[0],word[1:],[(i,j)]):
+                    return True
+    return False
