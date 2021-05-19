@@ -1,23 +1,19 @@
 def findDuplicate(self, nums: List[int]) -> int:
-    size = len(nums)
-    left = 1
-    right = size - 1
-
-    while left < right:
-        mid = left + (right - left) // 2
-
+    n = len(nums)
+    if n == 2:
+        return nums[0]
+    l, r = 0, n - 1
+    while l < r:
+        mid = l + (r - l) // 2
         cnt = 0
-        for num in nums:
-            if num <= mid:
+        for i in nums:
+            if i <= mid:
                 cnt += 1
-        
-        # 根据抽屉原理，小于等于 4 的数的个数如果严格大于 4 个，
-        # 此时重复元素一定出现在 [1, 4] 区间里
+        # 抽屉原理
         if cnt > mid:
-            # 重复的元素一定出现在 [left, mid] 区间里
-            right = mid
+            # 重复的元素一定出现在 [l, mid] 区间里
+            r = mid
         else:
-            # if 分析正确了以后，else 搜索的区间就是 if 的反面
-            # [mid + 1, right]
-            left = mid + 1
-    return left
+            # 重复的元素一定出现在 [mid+1, l] 区间里
+            l = mid + 1
+    return l
