@@ -1,16 +1,14 @@
 def reorderLogFiles(logs):
-    dic_letter = []
-    dic_digit = []
-    
+    letter = []
+    digit = []
     for i in logs:
-        temp = i.split(' ')
-        if ''.join(temp[1:]).isalpha():
-            dic_letter.append(i)
+        content = i.split()[1]
+        if content.isalpha():
+            letter.append(i)
         else:
-            dic_digit.append(i)
-    
-    dic_letter.sort(key=lambda x: (' '.join(x.split(' ')[1:]), x.split(' ')[0]))
-    return dic_letter+dic_digit
+            digit.append(i)
+    letter = sorted(letter, key=lambda x: (x.split()[1:], x.split()[0]))
+    return letter + digit
 
 
 print(reorderLogFiles(["dig1 8 1 5 1","let1 art can","dig2 3 6","let2 own kit dig","let3 art zero"]))
