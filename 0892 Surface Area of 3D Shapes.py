@@ -1,20 +1,22 @@
 def surfaceArea(self, grid):
-    N = len(grid)
-
-    ans = 0
-    for r in range(N):
-        for c in range(N):
-            if grid[r][c]:
-                # 上下表面积
-                ans += 2
-                # 上下左右
-                for nr, nc in ((r-1, c), (r+1, c), (r, c-1), (r,c+1)):
-                    if 0 <= nr < N and 0 <= nc < N:
-                        nval = grid[nr][nc]
-                    else:
-                        nval = 0
-                    
-                    # 对于 grid[r][c] 四个方向的每个相邻值 nv 还要加上 max(v - nv, 0)
-                    ans += max(grid[r][c] - nval, 0)
-
-    return ans
+    n = len(grid)
+    res = 0
+    directions = [(-1,0), (1,0), (0,-1), (0,1)]
+    
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j]:
+                res += 2
+                if i == 0:
+                    res += grid[i][j]
+                if j == 0:
+                    res += grid[i][j]
+                if i == n - 1:
+                    res += grid[i][j]
+                if j == n - 1:
+                    res += grid[i][j]
+            for di, dj in directions:
+                newi, newj = i + di, j + dj
+                if 0 <= newi < n and 0 <= newj < n and grid[newi][newj] > grid[i][j]:
+                    res += grid[newi][newj] - grid[i][j]
+    return res

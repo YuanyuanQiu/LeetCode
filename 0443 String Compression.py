@@ -13,4 +13,35 @@ def compress(chars):
             anchor = read + 1
     return write
 
-print(compress(["a","a","b","b","c","c","c"]))
+
+def compress(self, chars: List[str]) -> int:
+    n = len(chars)
+    if n == 1:
+        return 1
+    fast, slow = 0, 0
+    
+    while fast < len(chars):
+        if chars[fast] == chars[slow]:
+            fast += 1
+        elif chars[fast] != chars[slow]:
+            if fast - slow != 1:
+                length = str(fast - slow)
+                tmp = [chars[slow]]
+                for i in length:
+                    tmp.append(i)
+                chars[slow:fast]= tmp
+                slow += len(tmp)
+            else:
+                chars[slow:fast]= [chars[slow]]
+                slow += 1
+            fast = slow + 1
+    
+    if fast - slow != 1:
+        length = str(fast - slow)
+        tmp = [chars[slow]]
+        for i in length:
+            tmp.append(i)
+        chars[slow:fast]= tmp
+    else:
+        chars[slow:fast]= [chars[slow]]
+    return len(chars)

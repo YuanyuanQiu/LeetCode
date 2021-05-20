@@ -1,10 +1,10 @@
 def pivotIndex(nums):
-    S = sum(nums)
-    leftsum = 0
+    total = sum(nums)
+    left = 0
     for i, x in enumerate(nums):
-        if leftsum == (S - leftsum - x):
+        if left == (total - left - x):
             return i
-        leftsum += x
+        left += x
     return -1
 
 print(pivotIndex([-1,-1,-1,-1,-1,0]))

@@ -11,7 +11,7 @@ def calcEquation(self, equations: List[List[str]], values: List[float], queries:
 
     # Floyd算法 求图中任意2点距离，补足dic
     arr = list(set1)
-    for k in arr:
+    for k in arr: # 断点需在最外层
         for i in arr:
             for j in arr:
                 if graph[(i, k)] and graph[(k, j)]:
