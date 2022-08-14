@@ -14,4 +14,19 @@ def getRow(rowIndex: int):
     
     return ans
 
-print(getRow(4))
+def getRow(self, rowIndex):
+    """
+    :type rowIndex: int
+    :rtype: List[int]
+    """
+    dp = []
+    for i in range(rowIndex+1):
+        row = [None for _ in range(i+1)]
+        row[0], row[-1] = 1, 1
+
+        for j in range(1, len(row)-1):
+            row[j] = dp[i-1][j-1] + dp[i-1][j]
+        
+        dp.append(row)
+    
+    return dp[-1]

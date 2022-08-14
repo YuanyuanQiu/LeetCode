@@ -1,15 +1,13 @@
-def isBalanced(self, root: TreeNode) -> bool:
-    def depth(node):
-        if not node:
+def isBalanced(self, root):
+    """
+    :type root: TreeNode
+    :rtype: bool
+    """
+    def height(root):
+        if not root:
             return 0
-        left = depth(node.left)
-        right = depth(node.right)
-        if abs(left - right) > 1 or left == -1 or right == -1:
-            return -1
-        else:
-            return 1 + max(left, right)
+        return max(height(root.left), height(root.right)) + 1
 
-    if depth(root) == -1:
-        return False
-    else:
+    if not root:
         return True
+    return abs(height(root.left) - height(root.right)) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right)

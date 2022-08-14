@@ -1,14 +1,13 @@
-def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
-    left = 0
-    right = len(nums) - 1
-    
-    # len = 0
-    if left > right:
+def sortedArrayToBST(self, nums):
+    """
+    :type nums: List[int]
+    :rtype: TreeNode
+    """
+    t = TreeNode()
+    if not nums:
         return None
-    
-    mid = (left + right + 1) // 2
-    root = TreeNode(nums[mid])
-    root.left = self.sortedArrayToBST(nums[:mid])
-    root.right = self.sortedArrayToBST(nums[mid+1:])
-    
-    return root
+    mid = len(nums)//2
+    t.val = nums[mid]
+    t.left = self.sortedArrayToBST(nums[:mid])
+    t.right = self.sortedArrayToBST(nums[mid+1:])
+    return t
