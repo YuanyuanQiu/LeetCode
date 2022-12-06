@@ -1,21 +1,26 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+def removeElements(self, head, val):
+    """
+    :type head: ListNode
+    :type val: int
+    :rtype: ListNode
+    """
+    if not head:
+        return head
+    pre = ListNode(val=0, next=head)
+    dummy = pre
+    while head:
+        if head.val == val:
+            pre.next = head.next
+            head = head.next
+        else:
+            pre = pre.next
+            head = head.next
+    return dummy.next
 
-class Solution:
-    def removeElements(self, head: ListNode, val: int) -> ListNode:
-        sentinel = ListNode(0)
-        sentinel.next = head
-        
-        pre, cur = sentinel, head
-        while cur:
-            if cur == val:
-                pre.next = cur.next
-            else:
-                pre.cur = cur
-            cur = cur.next
-        
-        # 如果head.val是val的话，sentinel.next就不是head了
-        return sentinel.next
+
+# 递归
+def removeElements(self, head, val):
+    if not head:
+        return head
+    head.next = self.removeElements(head.next, val)
+    return head if head.val != val else head.next

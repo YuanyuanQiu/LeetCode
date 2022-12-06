@@ -1,7 +1,12 @@
-def containsNearbyDuplicate(nums, k):
+def containsNearbyDuplicate(self, nums, k):
+    """
+    :type nums: List[int]
+    :type k: int
+    :rtype: bool
+    """
     dic = {}
-    for i in range(len(nums)):
-        if nums[i] in dic and dic[nums[i]] >= i-k:
+    for i, v in enumerate(nums):
+        if v in dic and i - dic[v] <= k:
             return True
-        dic[nums[i]] = i
+        dic[v] = i
     return False

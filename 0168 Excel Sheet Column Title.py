@@ -1,27 +1,16 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 10 07:45:50 2020
+def convertToTitle(self, columnNumber):
+    """
+    :type columnNumber: int
+    :rtype: str
+    """
 
-@author: ToxicCat
-"""
+    # Z: 26 * (26**0)
+    # AZ: 1 * (26**1) + 26 * (26**0)
+    # ZY: 26 * (26**1) + 25 * (26**0)
 
-def convertToTitle(n: int) -> str:
-    origin = ord('A')
-    quotient = n//26
-    remainder = n%26
-    if remainder == 0:
-        remainder = 26
-        quotient -= 1
-    title = chr(origin+remainder-1)
-    while quotient>26:     
-        remainder = quotient%26
-        quotient = quotient//26
-        if remainder == 0:
-            remainder =26
-            quotient -= 1
-        title = chr(origin+remainder-1)+title
-    if quotient != 0:
-        title = chr(origin+quotient-1)+title
-    return title
-
-print(convertToTitle(1))
+    res = ''
+    while columnNumber > 0:
+        columnNumber -= 1
+        res = chr(columnNumber % 26 + ord("A")) + res
+        columnNumber //= 26
+    return res
