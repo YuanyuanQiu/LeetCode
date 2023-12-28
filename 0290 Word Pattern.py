@@ -1,18 +1,22 @@
-# def wordPattern(pattern, str):
-#     ls = str.split()
-#     dic = {}
-#     if len(ls) != len(pattern):
-#         return False
-#     for i in range(len(pattern)):
-#         if pattern[i] not in dic:
-#             dic[pattern[i]] = ls[i]
-#         else:
-#             if dic[pattern[i]] != ls[i]:
-#                 return False
-#         if list(dic.keys())[list(dic.values()).index(ls[i])]!= \
-#             pattern[i]:
-#             return False
-#     return True
+def wordPattern(self, pattern, s):
+    """
+    :type pattern: str
+    :type s: str
+    :rtype: bool
+    """
+    ls = s.split()
+    if len(ls)!= len(pattern):
+        return False
+    dic = dict() # {pattern:s}
+    for i in range(len(pattern)):
+        if pattern[i] in dic:
+            if dic[pattern[i]] != ls[i]:
+                return False
+        elif ls[i] in dic.values():
+            return False
+        else:
+            dic[pattern[i]] = ls[i]
+    return True
 
 
 def wordPattern(pattern, str):
