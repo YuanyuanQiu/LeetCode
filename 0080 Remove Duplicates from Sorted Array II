@@ -1,0 +1,16 @@
+def removeDuplicates(self, nums: List[int]) -> int:
+    # 如果数组长度小于等于2，无需处理。
+    if len(nums) <= 2:
+        return len(nums)
+    # j 是用来覆写数组的索引。
+    j = 1
+    # 从第三个元素开始遍历，因为前两个元素无论如何都会保留。
+    for i in range(2, len(nums)):
+        # 只有当当前元素和它前面的第二个元素不相等时，我们才将其写入 j 位置。
+        # 这确保了没有超过两个重复的元素。
+        if nums[i] != nums[j - 1]:
+            j += 1
+            nums[j] = nums[i]
+
+    # 数组的新长度是 j+1，因为 j 是索引，而长度应该是索引+1。
+    return j + 1
