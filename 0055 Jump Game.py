@@ -18,6 +18,20 @@ def canJump(nums):
                 return True
     return False
 
+
+def canJump(nums):
+    n = len(nums)
+    if n <= 1:
+        return True
+    # max index this or previous jump can reach
+    dp = [0] * n
+    dp[0] = nums[0]
+    for i in range(1, n):
+        if i > dp[i-1]:
+            return False
+        dp[i] = max(i + nums[i], dp[i-1])
+    return True
+
 print(canJump([3,2,1,0,4]))
             
             
