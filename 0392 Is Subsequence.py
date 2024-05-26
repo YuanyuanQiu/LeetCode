@@ -1,10 +1,10 @@
 def isSubsequence(s, t):
-    cut = 0
-    for i in s:
-        if t.find(i,cut) ==-1:
-            return False
-        else:
-            cut = t.find(i,cut)+1
-    return True
+    n, m = len(s), len(t)
+    i = j = 0
+    while i < n and j < m:
+        if s[i] == t[j]:
+            i += 1
+        j += 1
+    return i == n
 
 print(isSubsequence('axc', 'ahbgdc'))
