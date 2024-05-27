@@ -1,7 +1,5 @@
 def threeSum(nums):
     n = len(nums)
-    if n < 3:
-        return []
     nums.sort()
     res = []
     for i in range(n):
