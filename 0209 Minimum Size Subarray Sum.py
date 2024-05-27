@@ -3,15 +3,18 @@ def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         return 0
     
     n = len(nums)
+    # if no such subarray return 0
     ans = n + 1
     start, end = 0, 0
     total = 0
     while end < n:
         total += nums[end]
+        # move left pointer if met requirement
         while total >= target:
             ans = min(ans, end - start + 1)
             total -= nums[start]
             start += 1
+        # move right pointer if not met requirement
         end += 1
     
     return 0 if ans == n + 1 else ans
