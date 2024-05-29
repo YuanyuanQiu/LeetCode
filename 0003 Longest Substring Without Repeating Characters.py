@@ -15,5 +15,19 @@ def lengthOfLongestSubstring(s):
         res = max(res, r - i)
     return res
 
-
-print(lengthOfLongestSubstring("pwwkew"))
+def lengthOfLongestSubstring(self, s: str) -> int:
+    n = len(s)
+    if n <= 1:
+        return n
+    l, r = 0, 1
+    ans = 0
+    sub = set(s[0])
+    while r < n:
+        if s[r] in sub:
+            sub.remove(s[l])
+            l += 1
+        else:
+            sub.add(s[r])
+            r += 1
+            ans = max(ans, r-l)
+    return ans
