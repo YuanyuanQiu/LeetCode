@@ -1,17 +1,17 @@
-# import numpy as np
+def rotate(self, matrix: List[List[int]]) -> None:
+    """
+    Do not return anything, modify matrix in-place instead.
+    """
+    n = len(matrix)
 
-# def rotate(matrix):
-#     n = len(matrix)
-    
-#     if n <= 1:
-#         return matrix
-    
-#     new_matrix = np.zeros(shape=[n,n])
-#     for i in range(n):
-#         for j in range(n):
-#             new_matrix[j][n-1-i] = matrix[i][j]
-    
-#     return new_matrix
+    # row i -> column n-1-i; column j -> row j
+    for i in range(n // 2):
+        for j in range((n + 1) // 2):
+            tmp = matrix[i][j]
+            matrix[i][j] = matrix[n - 1 - j][i]
+            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j]
+            matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i]
+            matrix[j][n - 1 - i] = tmp
 
 def rotate(matrix):
     n = len(matrix[0])        
