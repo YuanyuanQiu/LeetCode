@@ -15,18 +15,14 @@
 
 
 def longestConsecutive(self, nums: List[int]) -> int:
-    res = 0
-    num_set = set(nums)
-
+    res = 0     # 记录最长连续序列的长度
+    num_set = set(nums)     # 记录nums中的所有数值
     for num in num_set:
-        if num - 1 not in num_set:
-            cur = num
-            cur_count = 1
-
-            while cur + 1 in num_set:
-                cur += 1
-                cur_count += 1
-
-            res = max(res, cur_count)
-
+        # 如果当前的数是一个连续序列的起点，统计这个连续序列的长度
+        if (num - 1) not in num_set:
+            seq_len = 1     # 连续序列的长度，初始为1
+            while (num + 1) in num_set:
+                seq_len += 1
+                num += 1    # 不断查找连续序列，直到num的下一个数不存在于数组中
+            res = max(res, seq_len)     # 更新最长连续序列长度
     return res
