@@ -1,5 +1,5 @@
 class Solution:
-    # 递归
+    # 递归 recursion
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         if not l1:
             return l2
@@ -13,7 +13,7 @@ class Solution:
             l2.next = self.mergeTwoLists(l1,l2.next)
             return l2
         
-    # 迭代
+    # 迭代 iteration
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         prehead = ListNode(-1)
 
