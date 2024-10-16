@@ -1,0 +1,37 @@
+class Solution:
+    def reverseLinkedList(self, head: Optional[ListNode]):
+        new_end = head
+        pre = None
+        cur = head
+        while cur:
+            temp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = temp
+        new_head = pre
+        return new_head, new_end
+
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if k == 1:
+            return head
+
+        # consider the first k nodes only
+        k_head, k_end = head, head
+        k1 = k - 1
+        while k1 > 0 and k_end is not None and k_end.next is not None:
+            k_end = k_end.next
+            k1 -= 1
+            
+        # not enough nodes, no reverse and return
+        if k1 > 0:
+            return k_head
+        # enough nodes, reverse and connect
+        elif k1 == 0:
+            temp = k_end.next
+            # break and reverse current k nodes
+            k_end.next = None
+            new_head, new_end = self.reverseLinkedList(k_head)
+            # connect to the remaining parts
+            new_end.next = self.reverseKGroup(temp, k)
+
+        return new_head
