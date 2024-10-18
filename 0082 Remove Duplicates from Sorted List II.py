@@ -14,3 +14,27 @@ def deleteDuplicates(self, head: ListNode) -> ListNode:
             cur = cur.next
 
     return dummy.next
+
+
+def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    dummy = ListNode(-1, head)
+    slow, fast = dummy, head
+    # 是否处于重复中
+    flag = False
+    while fast and fast.next:
+        # 有重复，移动fast直到最后一个重复值
+        if fast.val == fast.next.val:
+            flag = True
+            fast = fast.next
+        # 重复结束
+        elif flag:
+            slow.next = fast.next
+            fast = slow.next
+            flag = False
+        # 没有重复
+        else:
+            slow = slow.next
+            fast = fast.next
+    if flag:
+        slow.next = fast.next
+    return dummy.next
