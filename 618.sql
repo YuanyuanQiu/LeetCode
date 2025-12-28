@@ -1,13 +1,13 @@
-# Don't know which continent has the most students
-select
-    max(case when continent = 'America' then name else null end) America,
-    max(case when continent = 'Asia' then name else null end) Asia,
-    max(case when continent = 'Europe' then name else null end) Europe
-from
-    (select 
+SELECT 
+    MAX(CASE WHEN continent = 'America' THEN name END) AS America,
+    MAX(CASE WHEN continent = 'Asia' THEN name END) AS Asia,
+    MAX(CASE WHEN continent = 'Europe' THEN name END) AS Europe
+FROM (
+    SELECT 
         name, 
         continent, 
-        row_number() over (partition by continent order by name) cur_rank
-    from
-        student)t 
-group by cur_rank
+        -- 核心步骤：给每个洲内部的人按名字排序并编号
+        ROW_NUMBER() OVER (PARTITION BY continent ORDER BY name) as rn
+    FROM Student
+) t
+GROUP BY rn;
