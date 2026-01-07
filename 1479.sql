@@ -1,21 +1,15 @@
-# Write your MySQL query statement below
-select
-    t1.Category,
-    ifnull(sum(case when week_day = 0 then quantity else 0 end),0) as Monday,
-    ifnull(sum(case when week_day = 1 then quantity else 0 end),0) as Tuesday,
-    ifnull(sum(case when week_day = 2 then quantity else 0 end),0) as Wednesday,
-    ifnull(sum(case when week_day = 3 then quantity else 0 end),0) as Thursday,
-    ifnull(sum(case when week_day = 4 then quantity else 0 end),0) as Friday,
-    ifnull(sum(case when week_day = 5 then quantity else 0 end),0) as Saturday,
-    ifnull(sum(case when week_day = 6 then quantity else 0 end),0) as Sunday
-from
-    (select distinct item_category as Category
-    from Items) t1
-left join
-    (select i.item_category, weekday(o.order_date) as week_day, o.quantity
-    from Orders o
-    join Items i
-    on o.item_id = i.item_id) t2
-on t1.Category = t2.item_category
-group by t1.Category
-order by t1.Category
+SELECT
+    i.item_category AS Category,
+    -- 直接在聚合函数内部判断日期
+    SUM(CASE WHEN WEEKDAY(o.order_date) = 0 THEN o.quantity ELSE 0 END) AS Monday,
+    SUM(CASE WHEN WEEKDAY(o.order_date) = 1 THEN o.quantity ELSE 0 END) AS Tuesday,
+    SUM(CASE WHEN WEEKDAY(o.order_date) = 2 THEN o.quantity ELSE 0 END) AS Wednesday,
+    SUM(CASE WHEN WEEKDAY(o.order_date) = 3 THEN o.quantity ELSE 0 END) AS Thursday,
+    SUM(CASE WHEN WEEKDAY(o.order_date) = 4 THEN o.quantity ELSE 0 END) AS Friday,
+    SUM(CASE WHEN WEEKDAY(o.order_date) = 5 THEN o.quantity ELSE 0 END) AS Saturday,
+    SUM(CASE WHEN WEEKDAY(o.order_date) = 6 THEN o.quantity ELSE 0 END) AS Sunday
+FROM Items i
+LEFT JOIN Orders o
+    ON i.item_id = o.item_id
+GROUP BY i.item_category
+ORDER BY i.item_category;
