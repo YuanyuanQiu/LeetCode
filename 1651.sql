@@ -1,33 +1,34 @@
-# Write your MySQL query statement below
-with RECURSIVE f(n) as (select 1
-                        union all
-                        select n+1 from f
-                        where n < 12),
-a as (select
-        month(r.requested_at) as month,
-        sum(a.ride_distance) as ride_distance,
-        sum(a.ride_duration) as ride_duration
-    from Rides r
-    join AcceptedRides a
-    on r.ride_id = a.ride_id
-    where r.requested_at >= '2020-01-01' and r.requested_at < '2021-01-01'
-    group by month
-    order by month),
-b as (select
-        f.n as month,
-        ifnull(a.ride_distance,0) as ride_distance,
-        ifnull(a.ride_duration,0) as ride_duration
-    from f
-    left join a
-    on f.n = a.month)
-
-select *
-from
-    (select
+WITH RECURSIVE Months AS (
+    -- 1. Generate months 1 to 12 to ensure we have data for the forward lookups
+    SELECT 1 as month
+    UNION ALL
+    SELECT month + 1
+    FROM Months
+    WHERE month < 12
+),
+MonthlyTotals AS (
+    -- 2. Calculate the SUM for each specific month
+    SELECT
+        m.month,
+        IFNULL(SUM(ar.ride_distance), 0) AS mon_dist,
+        IFNULL(SUM(ar.ride_duration), 0) AS mon_dur
+    FROM Months m
+    LEFT JOIN Rides r
+        ON m.month = MONTH(r.requested_at)
+        AND YEAR(r.requested_at) = 2020 -- Filter inside ON clause to preserve empty months
+    LEFT JOIN AcceptedRides ar
+        ON r.ride_id = ar.ride_id
+    GROUP BY m.month
+),
+Calculations AS (
+    -- 3. Calculate the rolling sum of the monthly totals / 3
+    SELECT
         month,
-        round((sum(ride_distance) over(order by month ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING))/3, 2) as average_ride_distance,
-        round((sum(ride_duration) over(order by month ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING))/3, 2) as average_ride_duration
-    from b
-    group by month
-    order by month)t
-where month < 11
+        ROUND(SUM(mon_dist) OVER (ORDER BY month ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) / 3, 2) AS average_ride_distance,
+        ROUND(SUM(mon_dur) OVER (ORDER BY month ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) / 3, 2) AS average_ride_duration
+    FROM MonthlyTotals
+)
+-- 4. Filter for the requested output range
+SELECT *
+FROM Calculations
+WHERE month <= 10;
