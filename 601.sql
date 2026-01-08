@@ -1,3 +1,4 @@
+-- Option 1
 select distinct s1.id, s1.visit_date, s1.people
 from Stadium s1, Stadium s2, Stadium s3
 where s1.people >= 100 and s2.people >= 100 and s3.people >= 100
@@ -5,3 +6,25 @@ where s1.people >= 100 and s2.people >= 100 and s3.people >= 100
         or s2.id + 1 = s1.id and s1.id + 1 = s3.id
         or s2.id + 1 = s3.id and s3.id + 1 = s1.id)
 order by s1.visit_date
+
+-- Option 2
+WITH Filtered AS (
+    SELECT id, visit_date, people
+    FROM Stadium
+    WHERE people >= 100
+),
+Grouped AS (
+    SELECT 
+        *,
+        id - ROW_NUMBER() OVER (ORDER BY id) AS grp
+    FROM Filtered
+)
+SELECT id, visit_date, people
+FROM Grouped
+WHERE grp IN (
+    SELECT grp 
+    FROM Grouped 
+    GROUP BY grp 
+    HAVING COUNT(*) >= 3
+)
+ORDER BY visit_date;
