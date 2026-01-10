@@ -22,12 +22,14 @@ class Solution:
         left = 0
         max_length = 0
 
+        # FOR loop to iterate right pointer instead of WHILE
         for right in range(len(s)):
             char = s[right]
             
             # If char is found and is within the current window
             if char in char_index_map and char_index_map[char] >= left:
-                left = char_index_map[char] + 1
+                # Instead of incrementing slow one by one, immediately jump slow to index + 1
+                left = char_index_map[char] + 1 
             
             # Update the latest index of the char
             char_index_map[char] = right
