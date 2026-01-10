@@ -1,4 +1,4 @@
-#  滑动窗口
+#  Option 1
 def lengthOfLongestSubstring(s):
     n = len(s)
     if n <= 1:
@@ -15,19 +15,24 @@ def lengthOfLongestSubstring(s):
         res = max(res, r - i)
     return res
 
-def lengthOfLongestSubstring(self, s: str) -> int:
-    n = len(s)
-    if n <= 1:
-        return n
-    l, r = 0, 1
-    ans = 0
-    sub = set(s[0])
-    while r < n:
-        if s[r] in sub:
-            sub.remove(s[l])
-            l += 1
-        else:
-            sub.add(s[r])
-            r += 1
-            ans = max(ans, r-l)
-    return ans
+# Option 2
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        char_index_map = {}
+        left = 0
+        max_length = 0
+
+        for right in range(len(s)):
+            char = s[right]
+            
+            # If char is found and is within the current window
+            if char in char_index_map and char_index_map[char] >= left:
+                left = char_index_map[char] + 1
+            
+            # Update the latest index of the char
+            char_index_map[char] = right
+            
+            # Update max_length
+            max_length = max(max_length, right - left + 1)
+            
+        return max_length

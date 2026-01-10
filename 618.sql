@@ -25,8 +25,17 @@ FROM (
     SELECT 
         name, 
         continent, 
-        -- 核心步骤：给每个洲内部的人按名字排序并编号
         ROW_NUMBER() OVER (PARTITION BY continent ORDER BY name) as rn
     FROM Student
 ) t
 GROUP BY rn;
+'''
+If only CASE WHEN, it looks like below
+rn  America Asia    Europe
+1   Jack    null    null
+1   null    null    Pascal
+1   null    Xi      null
+2   Jane    null    null
+
+For America, when GROUP BY rn 1, we can get MAX(Jack, null, null) as Jack
+'''
