@@ -1,14 +1,19 @@
-# 若向内移动短板，水槽的短板可能变大，因此水槽面积 S(i, j)S(i,j) 可能增大。
-# 若向内移动长板，水槽的短板不变或变小，下个水槽的面积一定小于当前水槽面积。
-def maxArea(height):
-    i, j, res = 0, len(height) - 1, 0
-    while i < j:
-        if height[i] < height[j]:
-            res = max(res, height[i] * (j - i))
-            i += 1
-        else:
-            res = max(res, height[j] * (j - i))
-            j -= 1
-    return res
-
-print(maxArea([1,8,6,2,5,4,8,3,7]))
+# 我们在每一步移动指针时，宽度一定变小（因为 width - 1）
+# 若向内移动短板，宽度变小了，高度可能变高，因为原来限制水位的短板变化了，面积可能变大。
+# 若向内移动长板，宽度变小了，高度不可能变高，因为限制水位的短板还在原地，面积一定变小。
+# 如果两边高度相同，面积已经最大了，移动任意一边都可以。
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        n = len(height)
+        area = 0
+        left, right = 0, n-1
+        # 
+        while left < right:
+            area = max(area, (right - left) * min(height[left], height[right]))
+            # when to move left
+            if height[left] < height[right]:
+                left += 1
+            # when to move right
+            else:
+                right -= 1
+        return area
