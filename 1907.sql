@@ -30,3 +30,5 @@ UNION
 SELECT 'Average Salary', SUM(income BETWEEN 20000 AND 50000) FROM Accounts
 UNION
 SELECT 'High Salary', SUM(income > 50000) FROM Accounts;
+-- Note: SUM(condition) is a MySQL-specific shorthand.
+-- In standard SQL, you would use COUNT(CASE WHEN ...)
