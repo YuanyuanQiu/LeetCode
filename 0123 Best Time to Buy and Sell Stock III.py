@@ -1,3 +1,37 @@
+# Option 1 DP框架
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        if n <= 1:
+            return 0
+        
+        # 初始化
+        dp = [[0] * 4 for _ in range(n)]
+        
+        # Day 0 初始化
+        dp[0][0] = -prices[0] # Buy1: 花钱买第一股
+        dp[0][1] = 0          # Sell1: 还没卖，利润0
+        dp[0][2] = -prices[0] # Buy2: 假设同一天买卖又买，成本还是 -price
+        dp[0][3] = 0          # Sell2: 还没卖
+        
+        for i in range(1, n):
+            # 1. Buy1: 来自 初始状态(0)
+            dp[i][0] = max(dp[i-1][0], -prices[i]) 
+            
+            # 2. Sell1: 来自 Buy1
+            dp[i][1] = max(dp[i-1][1], dp[i-1][0] + prices[i])
+            
+            # 3. Buy2: 来自 Sell1 (用第一次赚的钱买)
+            dp[i][2] = max(dp[i-1][2], dp[i-1][1] - prices[i])
+            
+            # 4. Sell2: 来自 Buy2
+            dp[i][3] = max(dp[i-1][3], dp[i-1][2] + prices[i])
+            
+        # 返回 Sell2 即可，因为如果不买第二次，Sell2 的逻辑里包含了 Sell1 的结果
+        # (即 Buy2 没操作，Sell2 也没操作，最后数值等同于 Sell1)
+        return dp[-1][3]
+    
+# Option 2 DP优化
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         if not prices:
